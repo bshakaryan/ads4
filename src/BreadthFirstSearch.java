@@ -1,6 +1,6 @@
 import java.util.*;
 
-class BreadthFirstSearch<T> implements Search <T> {
+class BreadthFirstSearch<T> implements Search<T> {
     private final Map<T, T> edgeTo;
     private final Set<T> marked;
     private final T start;
@@ -20,8 +20,8 @@ class BreadthFirstSearch<T> implements Search <T> {
         while (!queue.isEmpty()) {
             T v = queue.poll();
             Vertex<T> vertex = graph.getVertex(v);
-            for (Edge<T> edge : vertex.getAdjacents()) {
-                T w = edge.getVertex().getValue();
+            for (Vertex<T> adj : vertex.getAdjacents()) {
+                T w = adj.getValue();
                 if (!marked.contains(w)) {
                     edgeTo.put(w, v);
                     marked.add(w);

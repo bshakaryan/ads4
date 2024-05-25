@@ -15,8 +15,8 @@ class DepthFirstSearch<T> implements Search<T> {
     private void dfs(MyGraph<T> graph, T v) {
         marked.add(v);
         Vertex<T> vertex = graph.getVertex(v);
-        for (Edge<T> edge : vertex.getAdjacents()) {
-            T w = edge.getVertex().getValue();
+        for (Vertex<T> adj : vertex.getAdjacents()) {
+            T w = adj.getValue();
             if (!marked.contains(w)) {
                 edgeTo.put(w, v);
                 dfs(graph, w);

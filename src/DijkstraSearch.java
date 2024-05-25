@@ -21,19 +21,20 @@ class DijkstraSearch<T> implements Search<T> {
         while (!pq.isEmpty()) {
             T v = pq.poll().getVertex();
             Vertex<T> vertex = graph.getVertex(v);
-            for (Edge<T> edge : vertex.getAdjacents()) {
-                relax(edge, v);
+            for (Vertex<T> adj : vertex.getAdjacents()) {
+                relax(vertex, adj);
             }
         }
     }
 
-    private void relax(Edge<T> edge, T v) {
-        T w = edge.getVertex().getValue();
-        double weight = edge.getWeight();
-        if (distTo.get(w) > distTo.get(v) + weight) {
-            distTo.put(w, distTo.get(v) + weight);
-            edgeTo.put(w, v);
-            pq.add(new Pair<>(w, distTo.get(w)));
+    private void relax(Vertex<T> v, Vertex<T> w) {
+        double weight = v.getWeight(w);
+        T from = v.getValue();
+        T to = w.getValue();
+        if (distTo.get(to) > distTo.get(from) + weight) {
+            distTo.put(to, distTo.get(from) + weight);
+            edgeTo.put(to, from);
+            pq.add(new Pair<>(to, distTo.get(to)));
         }
     }
 
